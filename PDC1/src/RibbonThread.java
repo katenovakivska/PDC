@@ -22,10 +22,10 @@ public class RibbonThread extends Thread {
                     synchronized (Result.matrix) {
                         Result.matrix[rows.get(j).index][column.index] = sum;
                     }
-                    synchronized (column) {
+                   /* synchronized (column) {*/
                         column.next = column;
                         column = column.previous;
-                    }
+                   /* }*/
                 }
             }
 

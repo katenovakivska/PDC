@@ -1,15 +1,18 @@
+package SecondTask;
+
 import java.util.ArrayList;
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.TimeUnit;
 
-public class RibbonMultiplication {
+public class Multiplication {
     public ArrayList<Row> firstMatrix;
     public ArrayList<Column> secondMatrix;
-    public Result result;
     public ArrayList<RibbonThread> threads = new ArrayList<>();
+    public Result result;
     public int poolSize;
     public long time;
 
-    public RibbonMultiplication(ArrayList<Row> firstMatrix, ArrayList<Column> secondMatrix, int poolSize)
+    public Multiplication(ArrayList<Row> firstMatrix, ArrayList<Column> secondMatrix, int poolSize)
     {
         this.firstMatrix = firstMatrix;
         this.secondMatrix = secondMatrix;
@@ -18,6 +21,23 @@ public class RibbonMultiplication {
         this.time = 0;
     }
     public void count()
+    {
+        setNextPrevious();
+        var rowsAmount = firstMatrix.size() / poolSize;
+        ArrayList<Row> rows = new ArrayList<>();
+        rows.add(firstMatrix.get(0));
+        for (int j = 1; j <= poolSize; j++)
+        {
+            rows.add(firstMatrix.get(j * rowsAmount - 1));
+        }
+        var start = System.nanoTime();
+        new ForkJoinPool().invoke(new RibbonTask(rows, firstMatrix.get(0), secondMatrix.get(0), firstMatrix.size(), poolSize));
+        this.time = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - start);
+        Result.printResult();
+        System.out.println("Time of work for RibbonAlgo(size: " + firstMatrix.size() + "): "+ (time));
+    }
+
+    public void countNormal()
     {
         setNextPrevious();
         var rowsAmount = firstMatrix.size() / poolSize;
@@ -44,10 +64,9 @@ public class RibbonMultiplication {
 
         }
         this.time = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - start);
-        Result.printResult();
-        System.out.println("Time of work for RibbonAlgo(size: " + firstMatrix.size() + "): "+ (time));
+        //Result.printResult();
+        //System.out.println("Time of work for RibbonAlgo(size: " + firstMatrix.size() + "): "+ (time));
     }
-
     public void setNextPrevious()
     {
         for(int i = 0; i < firstMatrix.size(); i++)
@@ -55,10 +74,14 @@ public class RibbonMultiplication {
             if (i != 0) {
                 secondMatrix.get(i - 1).next = secondMatrix.get(i);
                 secondMatrix.get(i).previous = secondMatrix.get(i - 1);
+                firstMatrix.get(i - 1).next = firstMatrix.get(i);
+                firstMatrix.get(i).previous = firstMatrix.get(i - 1);
             }
         }
         secondMatrix.get(0).previous = secondMatrix.get(firstMatrix.size() - 1);
         secondMatrix.get(firstMatrix.size() - 1).next = secondMatrix.get(0);
+        firstMatrix.get(0).previous = firstMatrix.get(firstMatrix.size() - 1);
+        firstMatrix.get(firstMatrix.size() - 1).next = firstMatrix.get(0);
     }
 
     public void RibbonSequential()
