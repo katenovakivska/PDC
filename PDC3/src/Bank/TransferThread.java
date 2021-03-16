@@ -30,6 +30,10 @@ public class TransferThread extends Thread
                     bank.transfer4(fromAccount, toAccount, amount);
                     Thread.sleep(1);
                 }
+                if(bank.counter == 5)
+                {
+                    this.interrupt();
+                }
             }
         }
         catch(InterruptedException e)

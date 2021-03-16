@@ -7,6 +7,7 @@ class Bank
     public static final int NTEST = 10000;
     private final int[] accounts;
     private long ntransacts = 0;
+    public  int counter = 0;
     public ReentrantLock locker = new ReentrantLock();
 
     public Bank(int n, int initialBalance)
@@ -77,6 +78,7 @@ class Bank
         for (int i = 0; i < accounts.length; i++)
             sum += accounts[i] ;
         System.out.println("Transactions:" + ntransacts + " Sum: " + sum);
+        counter++;
     }
     public int size()
     {

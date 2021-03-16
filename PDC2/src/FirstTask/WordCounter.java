@@ -129,7 +129,7 @@ public class WordCounter {
         System.out.println("Min length: " + statistics.minLength);
         System.out.println("Max length: " + statistics.maxLength);
         System.out.println("--------------------Amount of words of different length--------------------");
-        System.out.printf("%-10s %-10s %-15s\n", "length: ", "amount: ","frequency: ");
+        System.out.printf("%-10s %-10s %-15s\n", "Length", "Amount","Frequency");
 
         for (int i = 0; i < statistics.counter.length; i++)
         {

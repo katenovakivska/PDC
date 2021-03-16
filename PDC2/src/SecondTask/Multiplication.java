@@ -33,8 +33,8 @@ public class Multiplication {
         var start = System.nanoTime();
         new ForkJoinPool().invoke(new RibbonTask(rows, firstMatrix.get(0), secondMatrix.get(0), firstMatrix.size(), poolSize));
         this.time = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - start);
-        Result.printResult();
-        System.out.println("Time of work for RibbonAlgo(size: " + firstMatrix.size() + "): "+ (time));
+        //Result.printResult();
+        //System.out.println("Time of work for RibbonAlgo(size: " + firstMatrix.size() + "): "+ (time));
     }
 
     public void countNormal()
