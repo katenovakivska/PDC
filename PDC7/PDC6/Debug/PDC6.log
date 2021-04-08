@@ -1,0 +1,7 @@
+﻿  PDC6.cpp
+C:\Users\Kateryna\source\repos\PDC6\PDC6\PDC6.cpp(131,13): warning C4101: status: неиспользованная локальная переменная
+C:\Users\Kateryna\source\repos\PDC6\PDC6\PDC6.cpp(178,27): warning C4101: recv_req: неиспользованная локальная переменная
+C:\Users\Kateryna\source\repos\PDC6\PDC6\PDC6.cpp(219,27): warning C4101: recv_req: неиспользованная локальная переменная
+  PDC7.cpp
+  Создание кода...
+  PDC6.vcxproj -> C:\Users\Kateryna\source\repos\PDC6\Debug\PDC6.exe
